@@ -27,6 +27,7 @@ echo "BUILD_DIR: $BUILD_DIR"
 echo "CC: $CC"
 echo "CXX: $CXX"
 echo "CXXFLAGS: $CXXFLAGS"
+echo "CMAKE_TOOLCHAIN_FILE: $TOOLCHAIN"
 echo "--------------------------"
 
 mkdir "$BUILD_DIR" && pushd "$BUILD_DIR"

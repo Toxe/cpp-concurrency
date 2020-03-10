@@ -29,6 +29,7 @@ if (Test-Path "$VCPKG_DIR" -PathType Container) {
 Write-Host "---- build-project.ps1 ----"
 Write-Host "VCPKG_DIR: $VCPKG_DIR"
 Write-Host "BUILD_DIR: $BUILD_DIR"
+Write-Host "CMAKE_TOOLCHAIN_FILE: $TOOLCHAIN"
 Write-Host "---------------------------"
 
 if (-not (Get-Command cmake -ErrorAction SilentlyContinue)) {
