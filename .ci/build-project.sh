@@ -18,6 +18,9 @@ set -e
 VCPKG_DIR=${1:-$HOME/vcpkg}
 BUILD_DIR=${2:-build}
 
+# only pass toolchain file to CMake if Vcpkg is installed
+if [ -d "$VCPKG_DIR" ]; then TOOLCHAIN="$VCPKG_DIR/scripts/buildsystems/vcpkg.cmake"; else TOOLCHAIN=False; fi
+
 echo "---- build-project.sh ----"
 echo "VCPKG_DIR: $VCPKG_DIR"
 echo "BUILD_DIR: $BUILD_DIR"
@@ -27,6 +30,6 @@ echo "CXXFLAGS: $CXXFLAGS"
 echo "--------------------------"
 
 mkdir "$BUILD_DIR" && pushd "$BUILD_DIR"
-cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="$VCPKG_DIR/scripts/buildsystems/vcpkg.cmake" ..
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="$TOOLCHAIN" ..
 cmake --build .
 popd
