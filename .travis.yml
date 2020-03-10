@@ -118,4 +118,3 @@ install:
 script:
   # build project with $CC/$CXX/$CXXFLAGS
   - /bin/bash .ci/build-project.sh
-  - ./build/example_simple
