@@ -5,3 +5,7 @@
 ## Dependencies
 
 - CMake
+
+## Thread Sanitizer (TSAN)
+
+When using Clang pass `-DUSE_SANITIZER=thread` to CMake to use Thread Sanitizer.
