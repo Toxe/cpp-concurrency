@@ -3,10 +3,7 @@ set(ALL_TARGETS
     thread_local
     std_async
     std_atomic
-    std_jthread
     std_lock_guard
-    std_latch_arrive_and_wait
-    std_latch_wait
 )
 
 add_executable(thread_local thread_local.cpp)
@@ -16,14 +13,43 @@ add_executable(std_async std_async.cpp
                          common/prime.h common/prime.cpp)
 add_executable(std_atomic std_atomic.cpp
                           common/prime.h common/prime.cpp)
-add_executable(std_jthread std_jthread.cpp
-                           common/prime.h common/prime.cpp)
 add_executable(std_lock_guard std_lock_guard.cpp
                               common/prime.h common/prime.cpp)
-add_executable(std_latch_arrive_and_wait std_latch_arrive_and_wait.cpp
-                                         common/prime.h common/prime.cpp)
-add_executable(std_latch_wait std_latch_wait.cpp
-                              common/prime.h common/prime.cpp)
+
+# std::jthread: GCC 10+
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL "10.0.0")
+        list(APPEND ALL_TARGETS std_jthread)
+
+        add_executable(std_jthread std_jthread.cpp
+                                   common/prime.h common/prime.cpp)
+    endif()
+endif()
+
+# std::latch: GCC 11+, Clang 11+
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL "11.0.0")
+        list(APPEND ALL_TARGETS std_latch_arrive_and_wait
+                                std_latch_wait)
+
+        add_executable(std_latch_arrive_and_wait std_latch_arrive_and_wait.cpp
+                                                 common/prime.h common/prime.cpp)
+        add_executable(std_latch_wait std_latch_wait.cpp
+                                      common/prime.h common/prime.cpp)
+    endif()
+endif()
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL "11.0.0")
+        list(APPEND ALL_TARGETS std_latch_arrive_and_wait
+                                std_latch_wait)
+
+        add_executable(std_latch_arrive_and_wait std_latch_arrive_and_wait.cpp
+                                                 common/prime.h common/prime.cpp)
+        add_executable(std_latch_wait std_latch_wait.cpp
+                                      common/prime.h common/prime.cpp)
+    endif()
+endif()
 
 foreach(target ${ALL_TARGETS})
     set_target_properties(${target} PROPERTIES CXX_EXTENSIONS OFF)
