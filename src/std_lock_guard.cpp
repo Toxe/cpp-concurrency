@@ -38,8 +38,13 @@ int main()
     const auto t2 = std::chrono::high_resolution_clock::now();
     const auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
 
-    for (auto [n, prime, ms] : primes)
-        std::cout << "prime #" << n << ": " << prime << " (" << ms.count() << "ms)\n";
+    int sum_of_primes = 0;
 
+    for (auto [n, prime, ms] : primes) {
+        sum_of_primes += prime;
+        std::cout << "prime #" << n << ": " << prime << " (" << ms.count() << "ms)\n";
+    }
+
+    std::cout << "sum of primes = " << sum_of_primes << '\n';
     std::cout << "duration: " << ms.count() << "ms\n";
 }
