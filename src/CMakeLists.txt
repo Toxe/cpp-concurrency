@@ -1,56 +1,56 @@
 set(ALL_TARGETS
     nth_prime_single_threaded
-    thread_local
-    std_async
-    std_atomic
+    async
+    atomic
     condition_variable1
-    std_lock_guard
+    lock_guard
+    thread_local
 )
 
 add_executable(thread_local thread_local.cpp)
 add_executable(nth_prime_single_threaded nth_prime_single_threaded.cpp
                                          common/prime.h common/prime.cpp)
-add_executable(std_async std_async.cpp
-                         common/prime.h common/prime.cpp)
-add_executable(std_atomic std_atomic.cpp
-                          common/prime.h common/prime.cpp)
+add_executable(async async.cpp
+                     common/prime.h common/prime.cpp)
+add_executable(atomic atomic.cpp
+                      common/prime.h common/prime.cpp)
 add_executable(condition_variable1 condition_variable1.cpp
                                    common/prime.h common/prime.cpp)
-add_executable(std_lock_guard std_lock_guard.cpp
-                              common/prime.h common/prime.cpp)
+add_executable(lock_guard lock_guard.cpp
+                          common/prime.h common/prime.cpp)
 
 # std::jthread: GCC 10+
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL "10.0.0")
-        list(APPEND ALL_TARGETS std_jthread)
+        list(APPEND ALL_TARGETS jthread)
 
-        add_executable(std_jthread std_jthread.cpp
-                                   common/prime.h common/prime.cpp)
+        add_executable(jthread jthread.cpp
+                               common/prime.h common/prime.cpp)
     endif()
 endif()
 
 # std::latch: GCC 11+, Clang 11+
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL "11.0.0")
-        list(APPEND ALL_TARGETS std_latch_arrive_and_wait
-                                std_latch_wait)
+        list(APPEND ALL_TARGETS latch_arrive_and_wait
+                                latch_wait)
 
-        add_executable(std_latch_arrive_and_wait std_latch_arrive_and_wait.cpp
-                                                 common/prime.h common/prime.cpp)
-        add_executable(std_latch_wait std_latch_wait.cpp
-                                      common/prime.h common/prime.cpp)
+        add_executable(latch_arrive_and_wait latch_arrive_and_wait.cpp
+                                             common/prime.h common/prime.cpp)
+        add_executable(latch_wait latch_wait.cpp
+                                  common/prime.h common/prime.cpp)
     endif()
 endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL "11.0.0")
-        list(APPEND ALL_TARGETS std_latch_arrive_and_wait
-                                std_latch_wait)
+        list(APPEND ALL_TARGETS latch_arrive_and_wait
+                                latch_wait)
 
-        add_executable(std_latch_arrive_and_wait std_latch_arrive_and_wait.cpp
-                                                 common/prime.h common/prime.cpp)
-        add_executable(std_latch_wait std_latch_wait.cpp
-                                      common/prime.h common/prime.cpp)
+        add_executable(latch_arrive_and_wait latch_arrive_and_wait.cpp
+                                             common/prime.h common/prime.cpp)
+        add_executable(latch_wait latch_wait.cpp
+                                  common/prime.h common/prime.cpp)
     endif()
 endif()
 
