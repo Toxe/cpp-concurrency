@@ -4,6 +4,7 @@ set(ALL_TARGETS
     atomic
     condition_variable
     lock_guard
+    producer_consumer
     thread_local
 )
 
@@ -18,6 +19,8 @@ add_executable(condition_variable condition_variable.cpp
                                   common/prime.h common/prime.cpp)
 add_executable(lock_guard lock_guard.cpp
                           common/prime.h common/prime.cpp)
+add_executable(producer_consumer producer_consumer.cpp
+                                 common/prime.h common/prime.cpp)
 
 # std::jthread: GCC 10+
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
