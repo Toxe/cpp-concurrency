@@ -1,6 +1,7 @@
 set(ALL_TARGETS
     nth_prime_single_threaded
     thread_local
+    std_async
     std_atomic
     std_lock_guard
 )
@@ -8,6 +9,8 @@ set(ALL_TARGETS
 add_executable(thread_local thread_local.cpp)
 add_executable(nth_prime_single_threaded nth_prime_single_threaded.cpp
                                          common/prime.h common/prime.cpp)
+add_executable(std_async std_async.cpp
+                         common/prime.h common/prime.cpp)
 add_executable(std_atomic std_atomic.cpp
                           common/prime.h common/prime.cpp)
 add_executable(std_lock_guard std_lock_guard.cpp
