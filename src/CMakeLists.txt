@@ -3,6 +3,7 @@ set(ALL_TARGETS
     thread_local
     std_async
     std_atomic
+    condition_variable1
     std_lock_guard
 )
 
@@ -13,6 +14,8 @@ add_executable(std_async std_async.cpp
                          common/prime.h common/prime.cpp)
 add_executable(std_atomic std_atomic.cpp
                           common/prime.h common/prime.cpp)
+add_executable(condition_variable1 condition_variable1.cpp
+                                   common/prime.h common/prime.cpp)
 add_executable(std_lock_guard std_lock_guard.cpp
                               common/prime.h common/prime.cpp)
 
@@ -57,3 +60,5 @@ foreach(target ${ALL_TARGETS})
     target_compile_options(${target} PRIVATE ${SANITIZER_FLAGS} ${DEFAULT_COMPILER_OPTIONS_AND_WARNINGS})
     target_link_libraries(${target} PRIVATE ${SANITIZER_FLAGS} Threads::Threads)
 endforeach()
+
+target_link_libraries(condition_variable1 PRIVATE fmt::fmt spdlog::spdlog spdlog::spdlog_header_only)
