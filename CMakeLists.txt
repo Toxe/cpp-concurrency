@@ -12,6 +12,8 @@ include(cmake/StaticAnalyzers.cmake)
 # sanitizers
 include(cmake/Sanitizers.cmake)
 
+find_package(fmt CONFIG REQUIRED)
+find_package(spdlog CONFIG REQUIRED)
 find_package(Threads REQUIRED)
 
 add_subdirectory(src)
