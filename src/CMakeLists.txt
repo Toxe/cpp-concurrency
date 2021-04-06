@@ -20,6 +20,7 @@ add_executable(std_lock_guard std_lock_guard.cpp
 add_executable(std_latch_arrive_and_wait std_latch_arrive_and_wait.cpp
                                          common/prime.h common/prime.cpp)
 add_executable(std_latch_wait std_latch_wait.cpp
+                              common/prime.h common/prime.cpp)
 
 foreach(target ${ALL_TARGETS})
     set_target_properties(${target} PROPERTIES CXX_EXTENSIONS OFF)
