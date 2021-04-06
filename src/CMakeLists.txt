@@ -2,7 +2,7 @@ set(ALL_TARGETS
     nth_prime_single_threaded
     async
     atomic
-    condition_variable1
+    condition_variable
     lock_guard
     thread_local
 )
@@ -14,8 +14,8 @@ add_executable(async async.cpp
                      common/prime.h common/prime.cpp)
 add_executable(atomic atomic.cpp
                       common/prime.h common/prime.cpp)
-add_executable(condition_variable1 condition_variable1.cpp
-                                   common/prime.h common/prime.cpp)
+add_executable(condition_variable condition_variable.cpp
+                                  common/prime.h common/prime.cpp)
 add_executable(lock_guard lock_guard.cpp
                           common/prime.h common/prime.cpp)
 
