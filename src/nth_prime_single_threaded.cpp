@@ -5,14 +5,7 @@
 
 int calc_nth_prime(int n)
 {
-    const auto t1 = std::chrono::high_resolution_clock::now();
-    int prime = nth_prime(n);
-    const auto t2 = std::chrono::high_resolution_clock::now();
-    const auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
-
-    std::cout << "prime #" << n << ": " << prime << " (" << ms.count() << "ms)\n";
-
-    return prime;
+    return nth_prime(n);
 }
 
 int main()
