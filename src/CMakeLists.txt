@@ -4,6 +4,8 @@ set(ALL_TARGETS
     std_async
     std_atomic
     std_lock_guard
+    std_latch_arrive_and_wait
+    std_latch_wait
 )
 
 add_executable(thread_local thread_local.cpp)
@@ -15,6 +17,9 @@ add_executable(std_atomic std_atomic.cpp
                           common/prime.h common/prime.cpp)
 add_executable(std_lock_guard std_lock_guard.cpp
                               common/prime.h common/prime.cpp)
+add_executable(std_latch_arrive_and_wait std_latch_arrive_and_wait.cpp
+                                         common/prime.h common/prime.cpp)
+add_executable(std_latch_wait std_latch_wait.cpp
 
 foreach(target ${ALL_TARGETS})
     set_target_properties(${target} PROPERTIES CXX_EXTENSIONS OFF)
