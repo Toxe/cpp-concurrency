@@ -6,6 +6,8 @@
 #include <thread>
 #include <vector>
 
+#include <spdlog/spdlog.h>
+
 #include "common/prime.h"
 
 std::mutex mtx;
@@ -31,7 +33,7 @@ int main()
     for (int n = 30000; n <= 30010; ++n)
         threads.emplace_back(calc_nth_prime, n, std::ref(primes), std::ref(latch));
 
-    std::cout << "Press enter to start...";
+    fmt::print("Press enter to start...");
     std::cin.get();
 
     const auto t1 = std::chrono::high_resolution_clock::now();
@@ -44,6 +46,6 @@ int main()
     const auto t2 = std::chrono::high_resolution_clock::now();
     const auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
 
-    std::cout << "sum of primes = " << std::accumulate(primes.begin(), primes.end(), 0) << '\n';
-    std::cout << "duration: " << ms.count() << "ms\n";
+    spdlog::info("sum of primes = {}", std::accumulate(primes.begin(), primes.end(), 0));
+    spdlog::info("duration: {}ms", ms.count());
 }

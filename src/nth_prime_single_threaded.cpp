@@ -1,5 +1,6 @@
 #include <chrono>
-#include <iostream>
+
+#include <spdlog/spdlog.h>
 
 #include "common/prime.h"
 
@@ -20,6 +21,6 @@ int main()
     const auto t2 = std::chrono::high_resolution_clock::now();
     const auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
 
-    std::cout << "sum of primes = " << sum_of_primes << '\n';
-    std::cout << "duration: " << ms.count() << "ms\n";
+    spdlog::info("sum of primes = {}", sum_of_primes);
+    spdlog::info("duration: {}ms", ms.count());
 }
