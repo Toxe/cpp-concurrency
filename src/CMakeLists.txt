@@ -49,13 +49,15 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_GR
 endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL "11.0.0")
-    list(APPEND ALL_TARGETS latch_arrive_and_wait
-                            latch_wait)
+    if(NOT APPLE)
+        list(APPEND ALL_TARGETS latch_arrive_and_wait
+                                latch_wait)
 
-    add_executable(latch_arrive_and_wait latch_arrive_and_wait.cpp
-                                         common/prime.h common/prime.cpp)
-    add_executable(latch_wait latch_wait.cpp
-                              common/prime.h common/prime.cpp)
+        add_executable(latch_arrive_and_wait latch_arrive_and_wait.cpp
+                                             common/prime.h common/prime.cpp)
+        add_executable(latch_wait latch_wait.cpp
+                                  common/prime.h common/prime.cpp)
+    endif()
 endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC" AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL "19.28")
