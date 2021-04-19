@@ -6,6 +6,7 @@ set(ALL_TARGETS
     lock_guard
     producer_consumer
     thread_local
+    thread_class
 )
 
 add_executable(thread_local thread_local.cpp)
@@ -21,6 +22,8 @@ add_executable(lock_guard lock_guard.cpp
                           common/prime.h common/prime.cpp)
 add_executable(producer_consumer producer_consumer.cpp
                                  common/prime.h common/prime.cpp)
+add_executable(thread_class thread_class.cpp
+                            common/prime.h common/prime.cpp)
 
 # std::jthread: GCC 10+, MSVC 19.28
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL "10.0.0")
