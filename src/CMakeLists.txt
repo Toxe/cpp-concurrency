@@ -4,6 +4,7 @@ set(ALL_TARGETS
     atomic
     condition_variable
     lock_guard
+    mutex_timer
     producer_consumer
     thread_local
     thread_class
@@ -20,6 +21,9 @@ add_executable(condition_variable condition_variable.cpp
                                   common/prime.h common/prime.cpp)
 add_executable(lock_guard lock_guard.cpp
                           common/prime.h common/prime.cpp)
+add_executable(mutex_timer mutex_timer.cpp
+                           common/mutex_timer.h
+                           common/prime.h common/prime.cpp)
 add_executable(producer_consumer producer_consumer.cpp
                                  common/prime.h common/prime.cpp)
 add_executable(thread_class thread_class.cpp
