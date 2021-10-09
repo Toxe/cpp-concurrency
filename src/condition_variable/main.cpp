@@ -9,7 +9,7 @@
 #include <fmt/core.h>
 #include <spdlog/spdlog.h>
 
-#include "common/prime.h"
+#include "prime.h"
 
 using namespace std::chrono_literals;
 

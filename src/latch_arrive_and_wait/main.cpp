@@ -1,4 +1,5 @@
 #include <chrono>
+#include <latch>
 #include <mutex>
 #include <numeric>
 #include <thread>
@@ -6,12 +7,14 @@
 
 #include <spdlog/spdlog.h>
 
-#include "common/prime.h"
+#include "prime.h"
 
 std::mutex mtx;
 
-void calc_nth_prime(int n, std::vector<int>& primes)
+void calc_nth_prime(int n, std::vector<int>& primes, std::latch& latch)
 {
+    latch.arrive_and_wait();
+
     int prime = nth_prime(n);
 
     {
@@ -24,11 +27,12 @@ int main()
 {
     const auto t1 = std::chrono::high_resolution_clock::now();
 
+    std::latch latch(11);
     std::vector<std::thread> threads;
     std::vector<int> primes;
 
     for (int n = 30000; n <= 30010; ++n)
-        threads.emplace_back(calc_nth_prime, n, std::ref(primes));
+        threads.emplace_back(calc_nth_prime, n, std::ref(primes), std::ref(latch));
 
     for (auto& t : threads)
         t.join();

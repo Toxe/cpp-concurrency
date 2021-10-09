@@ -6,8 +6,8 @@
 
 #include <spdlog/spdlog.h>
 
-#include "common/mutex_timer.h"
-#include "common/prime.h"
+#include "mutex_timer.h"
+#include "prime.h"
 
 std::mutex mtx;
 MutexTimer mutex_timer("lock_guard", "calc_nth_prime");

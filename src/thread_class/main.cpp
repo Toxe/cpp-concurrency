@@ -4,7 +4,7 @@
 #include <fmt/ostream.h>
 #include <spdlog/spdlog.h>
 
-#include "common/prime.h"
+#include "prime.h"
 
 int calc_nth_prime(int n)
 {
