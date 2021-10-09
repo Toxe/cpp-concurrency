@@ -1,9 +1,11 @@
 #include <chrono>
-#include <iostream>
 #include <mutex>
 #include <random>
 #include <thread>
 #include <vector>
+
+#include <fmt/core.h>
+#include <fmt/ostream.h>
 
 int global_counter = 0;
 thread_local int local_counter = 0;
@@ -23,7 +25,7 @@ void do_something(int n)
 
         {
             std::lock_guard<std::mutex> lock(mtx);
-            std::cout << std::this_thread::get_id() << " Thread #" << n << " slept for " << ms << " ms. global_counter: " << ++global_counter << ", local_counter: " << ++local_counter << '\n';
+            fmt::print("[{}] Thread #{} slept for {} ms. global_counter: {}, local_counter: {}\n", std::this_thread::get_id(), n, ms, ++global_counter, ++local_counter);
         }
     }
 }
@@ -38,5 +40,5 @@ int main()
     for (auto& t : threads)
         t.join();
 
-    std::cout << "Done. global_counter: " << global_counter << ", local_counter: " << local_counter << '\n';
+    fmt::print("Done. global_counter: {}, local_counter: {}\n", global_counter, local_counter);
 }
