@@ -32,7 +32,7 @@ public:
 
     void update(std::chrono::steady_clock::time_point t0)
     {
-        const auto t = std::chrono::high_resolution_clock::now() - t0;
+        const auto t = std::chrono::steady_clock::now() - t0;
         std::lock_guard<std::mutex> lock(mtx_);
         ++count_;
         sum_ += t;
