@@ -16,6 +16,8 @@ find_package(fmt CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
 find_package(Threads REQUIRED)
 
+add_subdirectory(src/common/libprime)
+
 add_subdirectory(src/async)
 add_subdirectory(src/atomic)
 add_subdirectory(src/condition_variable)
