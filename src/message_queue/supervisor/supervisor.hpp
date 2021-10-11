@@ -28,7 +28,6 @@ class Supervisor {
 
     void main();
 
-    // void handle_message(SupervisorCalculationRequest&& calculation_request);
     void handle_message(SupervisorCalculationResults&& calculation_results);
     void handle_message(SupervisorQuit&&);
 

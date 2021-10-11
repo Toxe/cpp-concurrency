@@ -71,18 +71,6 @@ void Supervisor::calc_primes(const int first, const int last)
     spdlog::info("supervisor: sent {} WorkerCalculate messages", waiting_for_results_);
 }
 
-// void Supervisor::handle_message(SupervisorCalculationRequest&& calculation_request)
-// {
-//     spdlog::info("supervisor: received message SupervisorCalculationRequest, first={}, last={}", calculation_request.first, calculation_request.last);
-
-//     for (int nth_prime = calculation_request.first; nth_prime <= calculation_request.last; ++nth_prime) {
-//         worker_message_queue_.send(WorkerCalculate{nth_prime});
-//         ++waiting_for_results_;
-//     }
-
-//     spdlog::info("supervisor: sent {} WorkerCalculate messages", waiting_for_results_);
-// }
-
 void Supervisor::handle_message(SupervisorCalculationResults&& calculation_results)
 {
     spdlog::info("supervisor: received message SupervisorCalculationResults, nth_prime={}, prime={}", calculation_results.nth_prime, calculation_results.prime);
