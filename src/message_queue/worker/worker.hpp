@@ -2,7 +2,7 @@
 
 #include <thread>
 
-#include "message_queue.hpp"
+#include "message_queue/message_queue.hpp"
 #include "messages.hpp"
 
 class Worker {

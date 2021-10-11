@@ -4,9 +4,9 @@
 #include <thread>
 #include <vector>
 
-#include "message_queue.hpp"
+#include "message_queue/message_queue.hpp"
 #include "messages.hpp"
-#include "worker.hpp"
+#include "worker/worker.hpp"
 
 class Supervisor {
     std::mutex mtx_;

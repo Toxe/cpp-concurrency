@@ -3,8 +3,8 @@
 
 #include <spdlog/spdlog.h>
 
-#include "message_queue.hpp"
-#include "supervisor.hpp"
+#include "message_queue/message_queue.hpp"
+#include "supervisor/supervisor.hpp"
 
 int main()
 {
