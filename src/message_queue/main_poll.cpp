@@ -9,7 +9,6 @@
 int main()
 {
     Supervisor supervisor(4);
-
     supervisor.calc_primes(30000, 30010);
 
     while (!supervisor.has_all_results()) {
