@@ -4,10 +4,9 @@
 
 #include <spdlog/spdlog.h>
 
-Supervisor::Supervisor(const int num_threads)
-    : running_{false}
+Supervisor::Supervisor(const int number_of_worker_threads)
 {
-    run(num_threads);
+    run(number_of_worker_threads);
 }
 
 Supervisor::~Supervisor()
@@ -15,9 +14,9 @@ Supervisor::~Supervisor()
     join();
 }
 
-void Supervisor::run(const int num_threads)
+void Supervisor::run(const int number_of_worker_threads)
 {
-    num_threads_ = num_threads;
+    number_of_worker_threads_ = number_of_worker_threads;
     thread_ = std::thread(&Supervisor::main, this);
 }
 
@@ -45,10 +44,10 @@ void Supervisor::main()
     spdlog::info("supervisor: stopping");
 }
 
-void Supervisor::restart(const int num_threads)
+void Supervisor::restart(const int number_of_worker_threads)
 {
     shutdown();
-    run(num_threads);
+    run(number_of_worker_threads);
 }
 
 void Supervisor::shutdown()
@@ -65,10 +64,10 @@ void Supervisor::calc_primes(const int first, const int last)
 
     for (int nth_prime = first; nth_prime <= last; ++nth_prime) {
         worker_message_queue_.send(WorkerCalculate{nth_prime});
-        ++waiting_for_results_;
+        ++number_of_outstanding_results_;
     }
 
-    spdlog::info("supervisor: sent {} WorkerCalculate messages", waiting_for_results_);
+    spdlog::info("supervisor: sent {} WorkerCalculate messages", number_of_outstanding_results_);
 }
 
 void Supervisor::handle_message(SupervisorCalculationResults&& calculation_results)
@@ -77,12 +76,12 @@ void Supervisor::handle_message(SupervisorCalculationResults&& calculation_resul
 
     std::unique_lock<std::mutex> lock(mtx_);
 
-    if (--waiting_for_results_ == 0) {
+    if (--number_of_outstanding_results_ == 0) {
         spdlog::info("supervisor: all results received");
         cv_wait_until_finished_.notify_one();  // notify, in case we are waiting until finished
     }
 
-    assert(waiting_for_results_ >= 0);
+    assert(number_of_outstanding_results_ >= 0);
 }
 
 void Supervisor::handle_message(SupervisorQuit&&)
@@ -96,9 +95,9 @@ void Supervisor::start_workers()
 {
     spdlog::info("supervisor: starting workers");
 
-    workers_.reserve(static_cast<std::size_t>(num_threads_));
+    workers_.reserve(static_cast<std::size_t>(number_of_worker_threads_));
 
-    for (int id = 0; id < num_threads_; ++id) {
+    for (int id = 0; id < number_of_worker_threads_; ++id) {
         workers_.emplace_back(id, worker_message_queue_, supervisor_message_queue_);
         workers_.back().run();
     }
@@ -124,14 +123,14 @@ void Supervisor::clear_message_queues()
     supervisor_message_queue_.clear();
     worker_message_queue_.clear();
 
-    waiting_for_results_ = 0;
+    number_of_outstanding_results_ = 0;
 }
 
 bool Supervisor::has_all_results()
 {
     std::unique_lock<std::mutex> lock(mtx_);
 
-    return waiting_for_results_ == 0;
+    return number_of_outstanding_results_ == 0;
 }
 
 void Supervisor::wait_until_finished()
@@ -139,7 +138,7 @@ void Supervisor::wait_until_finished()
     spdlog::info("supervisor: wait until finished...");
 
     std::unique_lock<std::mutex> lock(mtx_);
-    cv_wait_until_finished_.wait(lock, [&] { return waiting_for_results_ == 0; });
+    cv_wait_until_finished_.wait(lock, [&] { return number_of_outstanding_results_ == 0; });
 
     spdlog::info("supervisor: finished");
 }

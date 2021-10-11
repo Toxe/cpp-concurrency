@@ -14,17 +14,17 @@ class Supervisor {
     std::mutex mtx_;
     std::condition_variable cv_wait_until_finished_;
 
-    bool running_;
+    bool running_ = false;
 
     std::thread thread_;
 
-    int num_threads_;
+    int number_of_worker_threads_;
     std::vector<Worker> workers_;
 
     MessageQueue<WorkerMessage> worker_message_queue_;
     MessageQueue<SupervisorMessage> supervisor_message_queue_;
 
-    int waiting_for_results_ = 0;
+    int number_of_outstanding_results_ = 0;
 
     void main();
 
@@ -36,13 +36,13 @@ class Supervisor {
     void clear_message_queues();
 
 public:
-    Supervisor(const int num_threads);
+    Supervisor(const int number_of_worker_threads);
     ~Supervisor();
 
-    void run(const int num_threads);
+    void run(const int number_of_worker_threads);
     void join();
 
-    void restart(const int num_threads);
+    void restart(const int number_of_worker_threads);
     void shutdown();
 
     void calc_primes(const int first, const int last);
