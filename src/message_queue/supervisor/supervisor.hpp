@@ -1,5 +1,6 @@
 #pragma once
 
+#include <condition_variable>
 #include <mutex>
 #include <thread>
 #include <vector>
@@ -11,6 +12,7 @@
 
 class Supervisor {
     std::mutex mtx_;
+    std::condition_variable cv_wait_until_finished_;
 
     bool running_;
 
@@ -47,4 +49,5 @@ public:
     void calc_primes(const int first, const int last);
 
     [[nodiscard]] bool has_all_results();
+    void wait_until_finished();
 };

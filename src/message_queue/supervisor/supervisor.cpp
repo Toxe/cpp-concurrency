@@ -89,8 +89,10 @@ void Supervisor::handle_message(SupervisorCalculationResults&& calculation_resul
 
     std::unique_lock<std::mutex> lock(mtx_);
 
-    if (--waiting_for_results_ == 0)
+    if (--waiting_for_results_ == 0) {
         spdlog::info("supervisor: all results received");
+        cv_wait_until_finished_.notify_one();  // notify, in case we are waiting until finished
+    }
 
     assert(waiting_for_results_ >= 0);
 }
@@ -142,4 +144,14 @@ bool Supervisor::has_all_results()
     std::unique_lock<std::mutex> lock(mtx_);
 
     return waiting_for_results_ == 0;
+}
+
+void Supervisor::wait_until_finished()
+{
+    spdlog::info("supervisor: wait until finished...");
+
+    std::unique_lock<std::mutex> lock(mtx_);
+    cv_wait_until_finished_.wait(lock, [&] { return waiting_for_results_ == 0; });
+
+    spdlog::info("supervisor: finished");
 }
