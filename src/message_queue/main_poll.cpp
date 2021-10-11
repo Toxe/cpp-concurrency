@@ -17,7 +17,9 @@ int main()
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 
-    spdlog::info("done, time to quit");
+    spdlog::info("done, time to shut down");
 
     supervisor.shutdown();
+
+    spdlog::info("quit");
 }
