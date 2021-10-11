@@ -10,13 +10,13 @@ class MessageQueue {
     std::condition_variable cv_;
     std::queue<T> queue_;
 
+    void notify_one() { cv_.notify_one(); };
+    void notify_all() { cv_.notify_all(); };
+
 public:
     void send(T&& msg);
 
     [[nodiscard]] T wait_for_message();
-
-    void notify_one() { cv_.notify_one(); };
-    void notify_all() { cv_.notify_all(); };
 
     int clear();
     [[nodiscard]] bool empty();
