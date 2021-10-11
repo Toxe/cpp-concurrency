@@ -1,6 +1,3 @@
-#include <chrono>
-#include <thread>
-
 #include <spdlog/spdlog.h>
 
 #include "message_queue/message_queue.hpp"
