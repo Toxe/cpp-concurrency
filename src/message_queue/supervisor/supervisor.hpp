@@ -6,6 +6,7 @@
 
 #include "message_queue/message_queue.hpp"
 #include "messages.hpp"
+#include "worker/messages.hpp"
 #include "worker/worker.hpp"
 
 class Supervisor {

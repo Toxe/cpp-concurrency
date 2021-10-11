@@ -2,7 +2,6 @@
 
 #include <variant>
 
-// Supervisor
 // struct SupervisorCalculationRequest {
 //     int first;
 //     int last;
@@ -17,12 +16,3 @@ struct SupervisorQuit {};
 
 using SupervisorMessage = std::variant<SupervisorCalculationResults, SupervisorQuit>;
 // using SupervisorMessage = std::variant<SupervisorCalculationRequest, SupervisorCalculationResults, SupervisorQuit>;
-
-// Worker
-struct WorkerCalculate {
-    int nth_prime;
-};
-
-struct WorkerQuit {};
-
-using WorkerMessage = std::variant<WorkerCalculate, WorkerQuit>;

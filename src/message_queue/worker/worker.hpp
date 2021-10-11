@@ -4,6 +4,7 @@
 
 #include "message_queue/message_queue.hpp"
 #include "messages.hpp"
+#include "supervisor/messages.hpp"
 
 class Worker {
     bool running_;

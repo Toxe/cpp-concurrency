@@ -1,9 +1,10 @@
 add_executable(message_queue
     main.cpp
     message_queue/message_queue.hpp
-    messages.hpp
+    supervisor/messages.hpp
     supervisor/supervisor.cpp
     supervisor/supervisor.hpp
+    worker/messages.hpp
     worker/worker.cpp
     worker/worker.hpp
 )
