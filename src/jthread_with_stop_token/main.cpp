@@ -28,7 +28,8 @@ int main()
     std::this_thread::sleep_for(std::chrono::seconds(3));
     spdlog::info("done, requesting thread to stop...");
 
-    thread.request_stop();
+    // note: no need to call request_stop(), this happens automatically at the end of this scope
+    // thread.request_stop();
 
     spdlog::info("quit");
 }
