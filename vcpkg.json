@@ -1,5 +1,15 @@
 {
     "name": "cpp-concurrency",
     "version": "0.0.1",
-    "dependencies": ["fmt", "spdlog"]
+    "dependencies": [
+        {
+            "name": "fmt",
+            "version>=": "8.0.1"
+        },
+        {
+            "name": "spdlog",
+            "version>=": "1.9.2"
+        }
+    ],
+    "builtin-baseline": "33f02c0ae50c262da487d21ace4f5d67ae949c18"
 }
